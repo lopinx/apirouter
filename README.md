@@ -3,17 +3,16 @@
 <p align="center">
 <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
 <img src="https://img.shields.io/badge/部署平台-Cloudflare%20Workers-FF7100?logo=cloudflare" alt="Cloudflare Workers">
-<img src="https://img.shields.io/badge/支持API-15个-brightgreen" alt="API Count">
 </p>
 
-> **多 API 代理网关**，基于 Cloudflare Workers —— 一个域名代理 15+ 个 AI 平台。
+> **多 API 代理网关**，基于 Cloudflare Workers —— 一个域名代理多个 AI 平台。
 
 ---
 
 ## ✨ 特性
 
 - **零配置** — 部署即可使用
-- **15+ API 支持** — OpenAI、Gemini、Claude、Groq 等
+- **多 API 支持** — OpenAI、Gemini、Claude、Groq 等
 - **完整透传** — 认证请求头原样转发
 - **统一域名** — 所有 API 共享同一端点
 
