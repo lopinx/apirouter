@@ -1,31 +1,27 @@
-<div align="right">
-   <a href="README_CN.md">中文</a> | <strong>English</strong>
-</div>
-
 # 🌐 Serverless API Proxy
 
 <p align="center">
 <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
-<img src="https://img.shields.io/badge/Deployed%20on-Cloudflare%20Workers-FF7100?logo=cloudflare" alt="Cloudflare Workers">
-<img src="https://img.shields.io/badge/APIs-15-brightgreen" alt="API Count">
+<img src="https://img.shields.io/badge/部署平台-Cloudflare%20Workers-FF7100?logo=cloudflare" alt="Cloudflare Workers">
+<img src="https://img.shields.io/badge/支持API-15个-brightgreen" alt="API Count">
 </p>
 
-> **Multi-API Proxy Gateway** powered by Cloudflare Workers — route to 15+ AI platforms through a single domain.
+> **多 API 代理网关**，基于 Cloudflare Workers —— 一个域名代理 15+ 个 AI 平台。
 
 ---
 
-## ✨ Features
+## ✨ 特性
 
-- **Zero Configuration** — Just deploy and go
-- **15+ APIs Supported** — OpenAI, Gemini, Claude, Groq, and more
-- **Full Header Passthrough** — Auth headers forwarded as-is
-- **Single Domain** — All APIs under one unified endpoint
+- **零配置** — 部署即可使用
+- **15+ API 支持** — OpenAI、Gemini、Claude、Groq 等
+- **完整透传** — 认证请求头原样转发
+- **统一域名** — 所有 API 共享同一端点
 
 ---
 
-## 🚀 Quick Start
+## 🚀 快速开始
 
-### Deploy to Cloudflare Workers
+### 一键部署到 Cloudflare Workers
 
 <p align="center">
 <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/lopins/serverless-api-proxy">
@@ -34,20 +30,20 @@
 </p>
 
 ```bash
-# Clone the repo
+# 克隆项目
 git clone https://github.com/lopins/serverless-api-proxy.git
 cd serverless-api-proxy
 
-# Deploy with Wrangler
+# 使用 Wrangler 部署
 npx wrangler deploy
 ```
 
 ---
 
-## 📋 Supported APIs
+## 📋 支持的 API
 
-| 🔗 Path | 🎯 Target API | 📝 Example Route |
-|:--------|:--------------|:-----------------|
+| 🔗 路径前缀 | 🎯 目标 API | 📝 示例路由 |
+|:-----------|:------------|:-----------|
 | `/openai` | [OpenAI](https://api.openai.com) | `/openai/v1/chat/completions` |
 | `/claude` | [Anthropic](https://api.anthropic.com) | `/claude/v1/completions` |
 | `/gemini` | [Google Gemini](https://generativelanguage.googleapis.com) | `/gemini/v1/models/gemini-pro:generateContent` |
@@ -66,9 +62,9 @@ npx wrangler deploy
 
 ---
 
-## 💻 Usage Example
+## 💻 使用示例
 
-### Python (OpenAI SDK compatible)
+### Python (OpenAI SDK 兼容)
 
 ```python
 import random
@@ -86,8 +82,8 @@ def gentext():
         completion = client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a smart and creative novelist."},
-                {"role": "user", "content": "Write a short fairy tale about kindness."}
+                {"role": "system", "content": "你是一个聪明且富有创造力的小说作家。"},
+                {"role": "user", "content": "请写一篇关于善良的短篇童话故事。"}
             ],
             top_p=0.7,
             temperature=0.7
@@ -104,24 +100,24 @@ def gentext():
 curl https://your-domain/openai/v1/chat/completions \
   -H "Authorization: Bearer sk-your-api-key" \
   -H "Content-Type: application/json" \
-  -d '{"model": "gpt-3.5-turbo", "messages": [{"role": "user", "content": "Hello!"}]}'
+  -d '{"model": "gpt-3.5-turbo", "messages": [{"role": "user", "content": "你好！"}]}'
 ```
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ 架构原理
 
 ```mermaid
 flowchart TD
-    C[👤 Client Request] -->|"GET /openai/v1/chat/completions"| W[⚡ Cloudflare Worker]
+    C[👤 客户端请求] -->|"GET /openai/v1/chat/completions"| W[⚡ Cloudflare Worker]
 
     subgraph worker ["Cloudflare Worker — src/_worker.js"]
-        M[📋 apiMapping<br/>15 API route table]
-        P[🔄 Forward method + headers + body]
+        M[📋 apiMapping<br/>15 API 路由表]
+        P[🔄 转发 method + headers + body]
         M --> P
     end
 
-    W -->|"fetch()"| U[☁️ Upstream API<br/>OpenAI / Anthropic / Gemini / ...]
+    W -->|"fetch()"| U[☁️ 上游 API<br/>OpenAI / Anthropic / Gemini / ...]
     U -->|"response"| W
     W -->|"return"| C
 
@@ -134,16 +130,16 @@ flowchart TD
 
 ---
 
-## ⚠️ Notes
+## ⚠️ 注意事项
 
-- 🔑 **API Keys**: Pass your API keys via request headers (`Authorization: Bearer ...`)
-- 🌍 **No CORS Headers**: This proxy is designed for server-to-server use; browser requests may face CORS restrictions
-- 📦 **No Rate Limiting**: Upstream rate limits apply directly; no additional throttling
+- 🔑 **API 密钥**：通过请求头传递您的 API Key（`Authorization: Bearer ...`）
+- 🌍 **无 CORS 头**：此代理面向服务端调用；浏览器直接调用可能受跨域限制
+- 📦 **无速率限制**：上游平台的限流策略直接生效，本代理不做额外控制
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by [lopinx](https://github.com/lopinx)**
+**由 [lopinx](https://github.com/lopinx) 用 ❤️ 制作**
 
 </div>
