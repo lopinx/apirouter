@@ -23,18 +23,26 @@
 ### 一键部署到 Cloudflare Workers
 
 <p align="center">
-<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/lopins/serverless-api-proxy">
+<a href="https://github.com/lopinx/apirouter">
 <img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Workers">
 </a>
 </p>
 
 ```bash
 # 克隆项目
-git clone https://github.com/lopins/serverless-api-proxy.git
-cd serverless-api-proxy
+git clone https://github.com/lopinx/apirouter.git
+cd apirouter
+```
 
-# 使用 Wrangler 部署
-gh workflow run deploy.yml
+### 通过 GitHub Actions 部署
+
+工作流设为手动触发，在 GitHub 仓库 **Actions** 页面点击 "Run workflow"。
+需要在仓库 **Settings → Secrets and variables → Actions** 中配置：
+
+| 变量名 | 必填 | 说明 |
+|--------|------|------|
+| `CLOUDFLARE_API_TOKEN` | 是 | Cloudflare API Token |
+| `API_MAPPING` | 否 | JSON 字符串格式的路由映射，覆盖默认值 |
 ```
 
 ---
@@ -137,15 +145,14 @@ flowchart TD
 
 ---
 
-
-
----
-
 ## 💻 本地运行
 
 使用 Node.js 22+，无需额外依赖：
 
 ```bash
+# 使用 .env 配置（可选）
+cp .env.example .env
+
 # 启动本地服务（默认端口 8787）
 npm run dev
 

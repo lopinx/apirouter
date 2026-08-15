@@ -2,44 +2,57 @@
 
 ## 项目概述
 
-无服务器 API 代理服务，将 15 个 AI 平台 API 代理到同一域名下，解决跨区域访问限制问题。
+无服务器 API 代理服务，将多个 AI 平台 API 代理到同一域名下，解决跨区域访问限制问题。同时支持 Cloudflare Workers 部署和 Node.js 本地运行。
 
 ---
 
 ## 项目结构
 
 ```
-apipr/
+apirouter/
 ├── src/
-│   └── _worker.js       # Cloudflare Workers 主逻辑（API 路由映射核心）
+│   └── _worker.js       # 单文件主逻辑（路由映射 + HTTP 服务器 + CF Workers 入口）
 ├── public/
 │   ├── index.html       # 装饰性健康检查页面
 │   └── robots.txt       # 禁止爬虫
-└── package.json         # 元信息（无构建步骤）
+├── .github/workflows/
+│   └── deploy.yml       # GitHub Actions 手动部署工作流
+├── .env.example         # 环境变量示例
+├── wrangler.toml        # Cloudflare Workers 配置
+└── package.json         # 元信息（无构建步骤、无依赖）
 ```
 
 ---
 
 ## 技术栈与部署
 
-- **运行时**：Cloudflare Workers（纯 JavaScript，无框架依赖）
-- **部署配置**：通过 GitHub Actions 自动部署
-- **兼容性日期**：`2024-10-01`
-- **workers_dev**：启用（可使用 `*.workers.dev` 子域名直接访问）
+- **运行时**：Cloudflare Workers 或 Node.js 22+（单文件兼容两者）
+- **部署方式**：GitHub Actions 手动触发（`workflow_dispatch`）
+- **本地运行**：`npm run dev`，自动加载 `.env` 文件
+- **无依赖**：纯原生 JavaScript，无任何 npm 包
 
 ---
 
 ## 核心逻辑
 
-`src/_worker.js` 中的 `apiMapping` 对象是路由映射的**唯一数据源**。新增 API 支持时，只需修改该对象的映射即可。
+`src/_worker.js` 单文件包含全部逻辑：
+- `apiMapping` 对象为默认路由表
+- 环境变量 `API_MAPPING`（JSON 字符串）可覆盖默认路由表
+- `handleRequest` 函数处理路由匹配和代理转发
+- 文件底部自动检测 Node.js 环境并启动 HTTP 服务器
 
-### 特殊路径处理
+### 路由匹配规则
+
+- 按前缀匹配，第一个命中的前缀生效
+- 透传请求方法、请求头、请求体
+- `redirect: 'manual'` 不自动跟随重定向
+
+### 特殊路径
 
 | 路径 | 行为 |
 |------|------|
-| `/` 或 `/index.html` | 返回 `index.html` 页面（装饰性健康检查页） |
-| `/robots.txt` | 返回 `Disallow: /` 拒绝爬虫 |
-| 其他 `/prefix/...` | 代理转发到对应上游 API |
+| `/robots.txt` | 返回 `Disallow: /` |
+| 未匹配前缀 | 返回 404 |
 
 ---
 
@@ -65,9 +78,19 @@ apipr/
 
 ---
 
-## 部署注意事项
+## 环境变量
+
+| 变量名 | 平台 | 说明 |
+|--------|------|------|
+| `API_MAPPING` | CF Workers / Node.js | JSON 字符串，覆盖默认路由表 |
+| `PORT` | Node.js | 本地服务端口，默认 8787 |
+
+---
+
+## 注意事项
 
 - 代理**透传所有请求方法和请求头**（包括认证 Header），请自行管理 API Key
 - 代理**不设置 CORS 头**，适用于服务端调用场景
 - **无速率限制**，上游 API 的限流策略直接生效
 - 路由匹配按 `apiMapping` 中定义的顺序进行，注意前缀之间不要有歧义（如 `/x` 和 `/xx`）
+- 新增 API 只需修改 `src/_worker.js` 中的 `apiMapping` 对象
