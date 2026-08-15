@@ -1,10 +1,12 @@
+import config from './config.js'
+
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
 })
 
 // 从环境变量读取路由映射，支持 JSON 字符串注入
-function getApiMapping(env) {
-  const raw = env.API_MAPPING
+function getApiMapping() {
+  const raw = self?.env?.API_MAPPING
   if (raw) {
     try {
       return JSON.parse(raw)
@@ -12,24 +14,7 @@ function getApiMapping(env) {
       console.error('API_MAPPING 解析失败:', e.message)
     }
   }
-  // 默认路由表
-  return {
-    '/discord':    'https://discord.com/api',
-    '/telegram':   'https://api.telegram.org',
-    '/openai':     'https://api.openai.com',
-    '/claude':     'https://api.anthropic.com',
-    '/gemini':     'https://generativelanguage.googleapis.com',
-    '/meta':       'https://www.meta.ai/api',
-    '/groq':       'https://api.groq.com',
-    '/x':          'https://api.x.ai',
-    '/cohere':     'https://api.cohere.ai',
-    '/huggingface':'https://api-inference.huggingface.co',
-    '/together':   'https://api.together.xyz',
-    '/novita':     'https://api.novita.ai',
-    '/portkey':    'https://api.portkey.ai',
-    '/fireworks':  'https://api.fireworks.ai',
-    '/openrouter': 'https://openrouter.ai/api'
-  }
+  return config
 }
 
 async function handleRequest(request) {
@@ -47,7 +32,7 @@ async function handleRequest(request) {
     })
   }
 
-  const apiMapping = getApiMapping(self.env)
+  const apiMapping = getApiMapping()
   const matchedPrefix = Object.keys(apiMapping).find(prefix => pathname.startsWith(prefix))
 
   if (matchedPrefix) {

@@ -137,6 +137,25 @@ flowchart TD
 
 ---
 
+
+
+---
+
+## 💻 本地运行
+
+使用 Node.js 22+，无需额外依赖：
+
+```bash
+# 启动本地服务（默认端口 8787）
+npm run dev
+
+# 自定义端口
+PORT=3000 npm run dev
+```
+
+访问 `http://localhost:8787/openai/v1/chat/completions` 即可测试。
+
+---
 <div align="center">
 
 **由 [lopinx](https://github.com/lopinx) 用 ❤️ 制作**
