@@ -12,7 +12,7 @@
 ## ✨ 特性
 
 - **零配置** — 部署即可使用
-- **多 API 支持** — OpenAI、Gemini、Claude、Groq 等
+- **多 API 支持** — OpenAI、Anthropic、Gemini、xAI 等
 - **完整透传** — 认证请求头原样转发
 - **统一域名** — 所有 API 共享同一端点
 
@@ -53,18 +53,10 @@ cd apirouter
 | `/openai` | [OpenAI](https://api.openai.com) | `/openai/v1/chat/completions` |
 | `/claude` | [Anthropic](https://api.anthropic.com) | `/claude/v1/completions` |
 | `/gemini` | [Google Gemini](https://generativelanguage.googleapis.com) | `/gemini/v1/models/gemini-pro:generateContent` |
-| `/groq` | [Groq](https://api.groq.com) | `/groq/openai/v1/chat/completions` |
-| `/cohere` | [Cohere](https://api.cohere.ai) | `/cohere/v1/chat/completions` |
-| `/huggingface` | [Hugging Face](https://api-inference.huggingface.co) | `/huggingface/models/meta-llama/Llama-3.1-70B-Instruct/v1/chat/completions` |
-| `/fireworks` | [Fireworks AI](https://api.fireworks.ai) | `/fireworks/v1/chat/completions` |
-| `/openrouter` | [OpenRouter](https://openrouter.ai/api) | `/openrouter/v1/chat/completions` |
 | `/discord` | [Discord](https://discord.com/api) | `/discord/v10/users/@me` |
 | `/telegram` | [Telegram Bot API](https://api.telegram.org) | `/telegram/bot<TOKEN>/getMe` |
 | `/meta` | [Meta AI](https://www.meta.ai/api) | `/meta/chat` |
 | `/xai` | [xAI](https://api.x.ai) | `/xai/v1/chat/completions` |
-| `/together` | [Together AI](https://api.together.xyz) | `/together/v1/chat/completions` |
-| `/novita` | [Novita AI](https://api.novita.ai) | `/novita/v3/chat/completions` |
-| `/portkey` | [Portkey AI](https://api.portkey.ai) | `/portkey/v1/chat/completions` |
 
 ---
 

@@ -6,15 +6,7 @@ const apiMapping = {
   '/claude':      'https://api.anthropic.com',
   '/gemini':      'https://generativelanguage.googleapis.com',
   '/meta':        'https://www.meta.ai/api',
-  '/groq':        'https://api.groq.com',
-  '/xai':         'https://api.x.ai',
-  '/cohere':      'https://api.cohere.ai',
-  '/huggingface': 'https://api-inference.huggingface.co',
-  '/together':    'https://api.together.xyz',
-  '/novita':      'https://api.novita.ai',
-  '/portkey':     'https://api.portkey.ai',
-  '/fireworks':   'https://api.fireworks.ai',
-  '/openrouter':  'https://openrouter.ai/api'
+  '/xai':         'https://api.x.ai'
 }
 
 async function handleRequest(request, env = {}) {

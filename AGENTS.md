@@ -65,18 +65,10 @@ apirouter/
 | `/openai` | `https://api.openai.com` | OpenAI |
 | `/claude` | `https://api.anthropic.com` | Anthropic |
 | `/gemini` | `https://generativelanguage.googleapis.com` | Google |
-| `/groq` | `https://api.groq.com` | Groq |
-| `/cohere` | `https://api.cohere.ai` | Cohere |
-| `/huggingface` | `https://api-inference.huggingface.co` | Hugging Face |
-| `/fireworks` | `https://api.fireworks.ai` | Fireworks AI |
-| `/openrouter` | `https://openrouter.ai/api` | OpenRouter |
 | `/discord` | `https://discord.com/api` | Discord |
 | `/telegram` | `https://api.telegram.org` | Telegram |
 | `/meta` | `https://www.meta.ai/api` | Meta AI |
 | `/xai` | `https://api.x.ai` | xAI |
-| `/together` | `https://api.together.xyz` | Together AI |
-| `/novita` | `https://api.novita.ai` | Novita AI |
-| `/portkey` | `https://api.portkey.ai` | Portkey AI |
 
 ---
 
