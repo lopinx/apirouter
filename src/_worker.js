@@ -3,26 +3,21 @@ addEventListener('fetch', event => {
 })
 
 async function handleRequest(request) {
-  const url = new URL(request.url);
-  const pathname = url.pathname;
+  const url = new URL(request.url)
+  const pathname = url.pathname
 
+  // 静态路径处理
   if (pathname === '/' || pathname === '/index.html') {
-    return new Response('service is running!', {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/html'
-      }
-    });
-  } 
-  if(pathname === '/robots.txt') {
+    return new Response(null, { status: 404 })
+  }
+  if (pathname === '/robots.txt') {
     return new Response('User-agent: *\nDisallow: /', {
       status: 200,
-      headers: {
-        'Content-Type': 'text/plain'
-      }
-    });
+      headers: { 'Content-Type': 'text/plain' }
+    })
   }
 
+  // 路由绑定：路径前缀 → 上游 API 地址
   const apiMapping = {
     '/discord': 'https://discord.com/api',
     '/telegram': 'https://api.telegram.org',
@@ -40,33 +35,32 @@ async function handleRequest(request) {
     '/fireworks': 'https://api.fireworks.ai',
     '/openrouter': 'https://openrouter.ai/api'
   }
-  
-  const [prefix, rest] = extractPrefixAndRest(pathname, Object.keys(apiMapping));
-  if (prefix) {
-    const baseApiUrl = apiMapping[prefix];
-    const targetUrl = `${baseApiUrl}${rest}`;
+
+  // 匹配路径前缀
+  const matchedPrefix = Object.keys(apiMapping).find(prefix => pathname.startsWith(prefix))
+  if (matchedPrefix) {
+    const targetPath = pathname.slice(matchedPrefix.length)
+    const targetUrl = `${apiMapping[matchedPrefix]}${targetPath}`
 
     try {
-      const newRequest = new Request(targetUrl, {
+      const response = await fetch(targetUrl, {
         method: request.method,
-        headers: new Headers(request.headers),
+        headers: request.headers,
         body: request.body
-      });
-
-      const response = await fetch(newRequest);
-      return response;
+      })
+      return response
     } catch (error) {
-      console.error('Failed to fetch:', error);
-      return new Response('Internal Server Error', { status: 500 });
+      console.error('Proxy error:', error)
+      return new Response(JSON.stringify({
+        error: 'Proxy error',
+        details: error.message
+      }), {
+        status: 502,
+        headers: { 'Content-Type': 'application/json' }
+      })
     }
   }
-}
 
-function extractPrefixAndRest(pathname, prefixes) {
-  for (const prefix of prefixes) {
-    if (pathname.startsWith(prefix)) {
-      return [prefix, pathname.slice(prefix.length)];
-    }
-  }
-  return [null, null];
+  // 未匹配任何路由
+  return new Response('Not Found', { status: 404 })
 }

@@ -3,3 +3,6 @@ main = "src/_worker.js"
 workers_dev = true
 compatibility_date = "2024-10-01"
 # compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "public"

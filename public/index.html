@@ -1,12 +1,91 @@
 <!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
-    <title>Vercel API Proxy - Multi-API proxy gateway based on vercel routes</title>
-    <meta name="robots" content="none"/>
-    <link rel="shortcut icon" href="https://lobechat.com/favicon-32x32.ico?v=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serverless API Proxy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container { max-width: 720px; width: 100%; }
+        .header { text-align: center; margin-bottom: 2.5rem; }
+        .logo { font-size: 3rem; margin-bottom: 0.5rem; }
+        h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .subtitle { color: #8b949e; font-size: 0.95rem; }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #1f6feb22;
+            border: 1px solid #1f6feb44;
+            color: #58a6ff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        .badge::before { content: ''; width: 6px; height: 6px; background: #3fb950; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .section { margin-bottom: 1.5rem; }
+        .section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b949e; margin-bottom: 0.8rem; }
+        .api-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.5rem; }
+        .api-item {
+            display: flex; align-items: center; gap: 0.6rem;
+            background: #161b22; border: 1px solid #30363d;
+            border-radius: 8px; padding: 0.6rem 0.8rem;
+            font-size: 0.85rem; transition: border-color 0.2s;
+        }
+        .api-item:hover { border-color: #58a6ff; }
+        .api-prefix { color: #58a6ff; font-family: monospace; font-weight: 600; }
+        .api-name { color: #c9d1d9; }
+        .api-dot { width: 5px; height: 5px; background: #3fb950; border-radius: 50%; flex-shrink: 0; }
+        .footer { margin-top: 2rem; text-align: center; color: #484f58; font-size: 0.8rem; }
+        .footer a { color: #58a6ff; text-decoration: none; }
+    </style>
 </head>
 <body>
-    service is running!
-</body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">⚡</div>
+            <h1>Serverless API Proxy</h1>
+            <p class="subtitle">Cloudflare Workers · Multi-API Gateway</p>
+            <div class="badge">Service Running</div>
+        </div>
 
+        <div class="section">
+            <div class="section-title">Supported APIs — 15 Platforms</div>
+            <div class="api-list">
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/openai</span><span class="api-name">OpenAI</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/claude</span><span class="api-name">Anthropic</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/gemini</span><span class="api-name">Google Gemini</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/groq</span><span class="api-name">Groq</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/cohere</span><span class="api-name">Cohere</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/huggingface</span><span class="api-name">Hugging Face</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/fireworks</span><span class="api-name">Fireworks AI</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/openrouter</span><span class="api-name">OpenRouter</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/discord</span><span class="api-name">Discord</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/telegram</span><span class="api-name">Telegram</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/meta</span><span class="api-name">Meta AI</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/x</span><span class="api-name">xAI</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/together</span><span class="api-name">Together AI</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/novita</span><span class="api-name">Novita AI</span></div>
+                <div class="api-item"><span class="api-dot"></span><span class="api-prefix">/portkey</span><span class="api-name">Portkey AI</span></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Powered by <a href="https://workers.cloudflare.com" target="_blank">Cloudflare Workers</a>
+        </div>
+    </div>
+</body>
 </html>
