@@ -15,7 +15,6 @@ apipr/
 ├── public/
 │   ├── index.html       # 装饰性健康检查页面
 │   └── robots.txt       # 禁止爬虫
-├── wrangler.toml        # Cloudflare Workers 部署配置
 └── package.json         # 元信息（无构建步骤）
 ```
 
@@ -24,7 +23,7 @@ apipr/
 ## 技术栈与部署
 
 - **运行时**：Cloudflare Workers（纯 JavaScript，无框架依赖）
-- **部署配置**：`wrangler.toml`
+- **部署配置**：通过 GitHub Actions 自动部署
 - **兼容性日期**：`2024-10-01`
 - **workers_dev**：启用（可使用 `*.workers.dev` 子域名直接访问）
 

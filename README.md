@@ -34,7 +34,7 @@ git clone https://github.com/lopins/serverless-api-proxy.git
 cd serverless-api-proxy
 
 # 使用 Wrangler 部署
-npx wrangler deploy
+gh workflow run deploy.yml
 ```
 
 ---
