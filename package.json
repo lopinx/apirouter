@@ -4,9 +4,8 @@
     "description": "Multi-API Proxy Gateway for Cloudflare Workers and Local Node.js",
     "type": "module",
     "scripts": {
-      "dev": "node src/_worker.js",
-      "build": "echo 'No build step required.'"
+      "dev": "node --env-file-if-exists=.env src/_worker.js"
     },
-    "author": "https://github.com/lopins",
+    "author": "https://github.com/lopinx",
     "license": "MIT"
-  }
+}

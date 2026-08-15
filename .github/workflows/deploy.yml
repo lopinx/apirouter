@@ -8,22 +8,16 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Deploy
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Deploy to Cloudflare Workers
+      - name: Deploy
         uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: deploy --var API_MAPPING:"${{ secrets.API_MAPPING }}"
         env:
           API_MAPPING: ${{ secrets.API_MAPPING }}
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          preCommands: |
+            if [ -n "$API_MAPPING" ]; then
+              printf '%s' "$API_MAPPING" | npx wrangler secret put API_MAPPING
+            fi
