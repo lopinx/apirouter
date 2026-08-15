@@ -32,13 +32,19 @@ async function handleRequest(request, env = {}) {
     try { mapping = JSON.parse(env.API_MAPPING) } catch {}
   }
 
-  const prefix = Object.keys(mapping).find(p => pathname.startsWith(p))
+  // 前缀必须匹配完整路径段，避免 /x 误吞 /xyz
+  const prefix = Object.keys(mapping).find(p => pathname === p || pathname.startsWith(p + '/'))
   if (!prefix) return new Response('Not Found', { status: 404 })
 
+  const targetUrl = mapping[prefix] + pathname.slice(prefix.length)
+  const headers = new Headers(request.headers)
+  // 删除原始 host 头，让 fetch 运行时根据目标 URL 自动设置
+  headers.delete('host')
+
   try {
-    return await fetch(mapping[prefix] + pathname.slice(prefix.length), {
+    return await fetch(targetUrl, {
       method: request.method,
-      headers: request.headers,
+      headers,
       body: request.body,
       duplex: 'half',
       redirect: 'manual'
@@ -58,6 +64,9 @@ if (typeof process !== 'undefined' && process.argv[1]?.endsWith('_worker.js')) {
   const { createServer } = await import('node:http')
   const { Readable } = await import('node:stream')
 
+  // undici 会自动解压响应体，转发时必须剔除实体相关头部，否则客户端收到的长度/编码不一致
+  const ENTITY_HEADERS = /^(content-(encoding|length)|transfer-encoding|connection|keep-alive)$/i
+
   const port = process.env.PORT || 8787
   createServer(async (req, res) => {
     const chunks = []
@@ -72,7 +81,11 @@ if (typeof process !== 'undefined' && process.argv[1]?.endsWith('_worker.js')) {
     })
     try {
       const response = await handleRequest(request, process.env)
-      res.writeHead(response.status, Object.fromEntries(response.headers))
+      const headers = {}
+      for (const [key, value] of response.headers) {
+        if (!ENTITY_HEADERS.test(key)) headers[key] = value
+      }
+      res.writeHead(response.status, headers)
       response.body ? Readable.fromWeb(response.body).pipe(res) : res.end()
     } catch (err) {
       res.writeHead(500, { 'Content-Type': 'text/plain' })

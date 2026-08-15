@@ -57,10 +57,10 @@ cd apirouter
 | `/cohere` | [Cohere](https://api.cohere.ai) | `/cohere/v1/chat/completions` |
 | `/huggingface` | [Hugging Face](https://api-inference.huggingface.co) | `/huggingface/models/meta-llama/Llama-3.1-70B-Instruct/v1/chat/completions` |
 | `/fireworks` | [Fireworks AI](https://api.fireworks.ai) | `/fireworks/v1/chat/completions` |
-| `/openrouter` | [OpenRouter](https://openrouter.ai/api) | `/openrouter/api/v1/chat/completions` |
-| `/discord` | [Discord](https://discord.com/api) | `/discord/api/v10/users/@me` |
+| `/openrouter` | [OpenRouter](https://openrouter.ai/api) | `/openrouter/v1/chat/completions` |
+| `/discord` | [Discord](https://discord.com/api) | `/discord/v10/users/@me` |
 | `/telegram` | [Telegram Bot API](https://api.telegram.org) | `/telegram/bot<TOKEN>/getMe` |
-| `/meta` | [Meta AI](https://www.meta.ai/api) | `/meta/api/chat` |
+| `/meta` | [Meta AI](https://www.meta.ai/api) | `/meta/chat` |
 | `/x` | [xAI](https://api.x.ai) | `/x/v1/chat/completions` |
 | `/together` | [Together AI](https://api.together.xyz) | `/together/v1/chat/completions` |
 | `/novita` | [Novita AI](https://api.novita.ai) | `/novita/v3/chat/completions` |
