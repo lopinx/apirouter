@@ -111,34 +111,25 @@ curl https://your-domain/openai/v1/chat/completions \
 
 ## 🏗️ 架构原理
 
-```
-┌─────────────────────────────────────────────────────┐
-│                    客户端请求                         │
-│         https://your-domain/openai/v1/...           │
-└───────────────────────┬─────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────┐
-│                 Cloudflare Worker                    │
-│                                                      │
-│  ┌──────────────────────────────────────────────┐   │
-│  │  apiMapping（路由表）                          │   │
-│  │  /openai   → api.openai.com                   │   │
-│  │  /claude   → api.anthropic.com                │   │
-│  │  /gemini   → generativelanguage.googleapis.com│   │
-│  │  ...（共 15 个 API）                          │   │
-│  └──────────────────────────────────────────────┘   │
-│                        │                             │
-│                        ▼                             │
-│  转发：method + headers + body                       │
-│  返回：上游响应直接透传                               │
-└───────────────────────┬─────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────┐
-│                   上游 API                           │
-│              (OpenAI / Anthropic / ...)             │
-└─────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    C[👤 客户端请求] -->|"GET /openai/v1/chat/completions"| W[⚡ Cloudflare Worker]
+
+    subgraph worker ["Cloudflare Worker — src/_worker.js"]
+        M[📋 apiMapping<br/>15 API 路由表]
+        P[🔄 转发 method + headers + body]
+        M --> P
+    end
+
+    W -->|"fetch()"| U[☁️ 上游 API<br/>OpenAI / Anthropic / Gemini / ...]
+    U -->|"response"| W
+    W -->|"return"| C
+
+    style C fill:#1f6feb,stroke:#58a6ff,color:#fff
+    style W fill:#30363d,stroke:#8b949e,color:#e6edf3
+    style M fill:#1f6feb22,stroke:#1f6feb,color:#58a6ff
+    style P fill:#30363d,stroke:#8b949e,color:#c9d1d9
+    style U fill:#238636,stroke:#3fb950,color:#fff
 ```
 
 ---

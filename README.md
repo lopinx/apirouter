@@ -111,34 +111,25 @@ curl https://your-domain/openai/v1/chat/completions \
 
 ## 🏗️ Architecture
 
-```
-┌─────────────────────────────────────────────────────┐
-│                 Client Request                       │
-│         https://your-domain/openai/v1/...           │
-└───────────────────────┬─────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────┐
-│              Cloudflare Worker                       │
-│                                                      │
-│  ┌──────────────────────────────────────────────┐   │
-│  │  apiMapping (Route Table)                     │   │
-│  │  /openai   → api.openai.com                   │   │
-│  │  /claude   → api.anthropic.com                │   │
-│  │  /gemini   → generativelanguage.googleapis.com│   │
-│  │  ... (15 APIs total)                          │   │
-│  └──────────────────────────────────────────────┘   │
-│                        │                             │
-│                        ▼                             │
-│  Forward: method + headers + body                    │
-│  Return: upstream response directly                  │
-└───────────────────────┬─────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────┐
-│                 Upstream API                         │
-│              (OpenAI / Anthropic / ...)             │
-└─────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    C[👤 Client Request] -->|"GET /openai/v1/chat/completions"| W[⚡ Cloudflare Worker]
+
+    subgraph worker ["Cloudflare Worker — src/_worker.js"]
+        M[📋 apiMapping<br/>15 API route table]
+        P[🔄 Forward method + headers + body]
+        M --> P
+    end
+
+    W -->|"fetch()"| U[☁️ Upstream API<br/>OpenAI / Anthropic / Gemini / ...]
+    U -->|"response"| W
+    W -->|"return"| C
+
+    style C fill:#1f6feb,stroke:#58a6ff,color:#fff
+    style W fill:#30363d,stroke:#8b949e,color:#e6edf3
+    style M fill:#1f6feb22,stroke:#1f6feb,color:#58a6ff
+    style P fill:#30363d,stroke:#8b949e,color:#c9d1d9
+    style U fill:#238636,stroke:#3fb950,color:#fff
 ```
 
 ---
