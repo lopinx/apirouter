@@ -144,6 +144,6 @@ flowchart TD
 
 <div align="center">
 
-**Made with ❤️ by [lopins](https://github.com/lopinx/apirouter)**
+**Made with ❤️ by [lopinx](https://github.com/lopinx)**
 
 </div>

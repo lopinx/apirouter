@@ -144,6 +144,6 @@ flowchart TD
 
 <div align="center">
 
-**由 [lopins](https://github.com/lopinx/apirouter) 用 ❤️ 制作**
+**由 [lopinx](https://github.com/lopinx) 用 ❤️ 制作**
 
 </div>
