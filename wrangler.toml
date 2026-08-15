@@ -1,4 +1,4 @@
-name = "serverless-api-proxy"
+name = "apirouter"
 main = "src/_worker.js"
 compatibility_date = "2024-10-01"
 
