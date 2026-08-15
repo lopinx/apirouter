@@ -1,13 +1,14 @@
 <div align="right">
    <strong>中文</strong> | <a href="README.md">English</a>
 </div>
-<div align="center">
 
+# 🌐 Serverless API Proxy
+
+<p align="center">
 <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
 <img src="https://img.shields.io/badge/部署平台-Cloudflare%20Workers-FF7100?logo=cloudflare" alt="Cloudflare Workers">
 <img src="https://img.shields.io/badge/支持API-15个-brightgreen" alt="API Count">
-
-# 🌐 Serverless API Proxy
+</p>
 
 > **多 API 代理网关**，基于 Cloudflare Workers —— 一个域名代理 15+ 个 AI 平台。
 
@@ -26,7 +27,11 @@
 
 ### 一键部署到 Cloudflare Workers
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/lopins/serverless-api-proxy)
+<p align="center">
+<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/lopins/serverless-api-proxy">
+<img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Workers">
+</a>
+</p>
 
 ```bash
 # 克隆项目

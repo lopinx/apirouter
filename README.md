@@ -1,13 +1,14 @@
 <div align="right">
    <a href="README_CN.md">中文</a> | <strong>English</strong>
 </div>
-<div align="center">
 
+# 🌐 Serverless API Proxy
+
+<p align="center">
 <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
 <img src="https://img.shields.io/badge/Deployed%20on-Cloudflare%20Workers-FF7100?logo=cloudflare" alt="Cloudflare Workers">
 <img src="https://img.shields.io/badge/APIs-15-brightgreen" alt="API Count">
-
-# 🌐 Serverless API Proxy
+</p>
 
 > **Multi-API Proxy Gateway** powered by Cloudflare Workers — route to 15+ AI platforms through a single domain.
 
@@ -26,7 +27,11 @@
 
 ### Deploy to Cloudflare Workers
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/lopins/serverless-api-proxy)
+<p align="center">
+<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/lopins/serverless-api-proxy">
+<img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Workers">
+</a>
+</p>
 
 ```bash
 # Clone the repo
