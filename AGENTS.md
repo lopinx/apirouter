@@ -73,7 +73,7 @@ apirouter/
 | `/discord` | `https://discord.com/api` | Discord |
 | `/telegram` | `https://api.telegram.org` | Telegram |
 | `/meta` | `https://www.meta.ai/api` | Meta AI |
-| `/x` | `https://api.x.ai` | xAI |
+| `/xai` | `https://api.x.ai` | xAI |
 | `/together` | `https://api.together.xyz` | Together AI |
 | `/novita` | `https://api.novita.ai` | Novita AI |
 | `/portkey` | `https://api.portkey.ai` | Portkey AI |

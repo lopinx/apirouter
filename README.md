@@ -61,7 +61,7 @@ cd apirouter
 | `/discord` | [Discord](https://discord.com/api) | `/discord/v10/users/@me` |
 | `/telegram` | [Telegram Bot API](https://api.telegram.org) | `/telegram/bot<TOKEN>/getMe` |
 | `/meta` | [Meta AI](https://www.meta.ai/api) | `/meta/chat` |
-| `/x` | [xAI](https://api.x.ai) | `/x/v1/chat/completions` |
+| `/xai` | [xAI](https://api.x.ai) | `/xai/v1/chat/completions` |
 | `/together` | [Together AI](https://api.together.xyz) | `/together/v1/chat/completions` |
 | `/novita` | [Novita AI](https://api.novita.ai) | `/novita/v3/chat/completions` |
 | `/portkey` | [Portkey AI](https://api.portkey.ai) | `/portkey/v1/chat/completions` |

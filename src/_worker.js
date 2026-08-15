@@ -7,7 +7,7 @@ const apiMapping = {
   '/gemini':      'https://generativelanguage.googleapis.com',
   '/meta':        'https://www.meta.ai/api',
   '/groq':        'https://api.groq.com',
-  '/x':           'https://api.x.ai',
+  '/xai':         'https://api.x.ai',
   '/cohere':      'https://api.cohere.ai',
   '/huggingface': 'https://api-inference.huggingface.co',
   '/together':    'https://api.together.xyz',
