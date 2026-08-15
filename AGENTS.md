@@ -44,7 +44,7 @@ apirouter/
 ### 路由匹配规则
 
 - 按前缀匹配，第一个命中的前缀生效
-- 前缀必须匹配完整路径段：`/openai` 匹配 `/openai` 和 `/openai/...`，但不匹配 `/openaix`
+- 前缀必须匹配完整路径段：`/gpt` 匹配 `/gpt` 和 `/gpt/...`，但不匹配 `/gptx`
 - 透传请求方法、请求头、请求体
 - `redirect: 'manual'` 不自动跟随重定向
 
@@ -62,13 +62,13 @@ apirouter/
 
 | 路径前缀 | 目标 API | 服务商 |
 |---------|---------|--------|
-| `/openai` | `https://api.openai.com` | OpenAI |
+| `/gpt` | `https://api.openai.com` | OpenAI |
 | `/claude` | `https://api.anthropic.com` | Anthropic |
 | `/gemini` | `https://generativelanguage.googleapis.com` | Google |
 | `/discord` | `https://discord.com/api` | Discord |
 | `/telegram` | `https://api.telegram.org` | Telegram |
-| `/meta` | `https://www.meta.ai/api` | Meta AI |
-| `/xai` | `https://api.x.ai` | xAI |
+| `/llama` | `https://www.meta.ai/api` | Meta AI |
+| `/grok` | `https://api.x.ai` | xAI |
 
 ---
 

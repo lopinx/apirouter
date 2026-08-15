@@ -12,7 +12,7 @@
 ## ✨ 特性
 
 - **零配置** — 部署即可使用
-- **多 API 支持** — OpenAI、Anthropic、Gemini、xAI 等
+- **多 API 支持** — OpenAI、Anthropic、Gemini、xAI、Meta AI 等
 - **完整透传** — 认证请求头原样转发
 - **统一域名** — 所有 API 共享同一端点
 
@@ -50,13 +50,13 @@ cd apirouter
 
 | 🔗 路径前缀 | 🎯 目标 API | 📝 示例路由 |
 |:-----------|:------------|:-----------|
-| `/openai` | [OpenAI](https://api.openai.com) | `/openai/v1/chat/completions` |
+| `/gpt` | [OpenAI](https://api.openai.com) | `/gpt/v1/chat/completions` |
 | `/claude` | [Anthropic](https://api.anthropic.com) | `/claude/v1/completions` |
 | `/gemini` | [Google Gemini](https://generativelanguage.googleapis.com) | `/gemini/v1/models/gemini-pro:generateContent` |
 | `/discord` | [Discord](https://discord.com/api) | `/discord/v10/users/@me` |
 | `/telegram` | [Telegram Bot API](https://api.telegram.org) | `/telegram/bot<TOKEN>/getMe` |
-| `/meta` | [Meta AI](https://www.meta.ai/api) | `/meta/chat` |
-| `/xai` | [xAI](https://api.x.ai) | `/xai/v1/chat/completions` |
+| `/llama` | [Meta AI](https://www.meta.ai/api) | `/llama/chat` |
+| `/grok` | [xAI](https://api.x.ai) | `/grok/v1/chat/completions` |
 
 ---
 
@@ -70,7 +70,7 @@ import re
 from openai import OpenAI
 
 ApiKey = "sk-your-api-key-here"
-BaseUrl = "https://your-domain/openai/v1"
+BaseUrl = "https://your-domain/gpt/v1"
 models = ["gpt-3.5-turbo", "gpt-4o-mini"]
 
 def gentext():
@@ -95,7 +95,7 @@ def gentext():
 ### cURL
 
 ```bash
-curl https://your-domain/openai/v1/chat/completions \
+curl https://your-domain/gpt/v1/chat/completions \
   -H "Authorization: Bearer sk-your-api-key" \
   -H "Content-Type: application/json" \
   -d '{"model": "gpt-3.5-turbo", "messages": [{"role": "user", "content": "你好！"}]}'
@@ -107,7 +107,7 @@ curl https://your-domain/openai/v1/chat/completions \
 
 ```mermaid
 flowchart TD
-    C[👤 客户端请求] -->|"GET /openai/v1/chat/completions"| W[⚡ Cloudflare Worker]
+    C[👤 客户端请求] -->|"GET /gpt/v1/chat/completions"| W[⚡ Cloudflare Worker]
 
     subgraph worker ["Cloudflare Worker — src/_worker.js"]
         M[📋 apiMapping<br/>API 路由表]
@@ -151,7 +151,7 @@ npm run dev
 PORT=3000 npm run dev
 ```
 
-访问 `http://localhost:8787/openai/v1/chat/completions` 即可测试。
+访问 `http://localhost:8787/gpt/v1/chat/completions` 即可测试。
 
 ---
 <div align="center">

@@ -2,11 +2,11 @@
 const apiMapping = {
   '/discord':     'https://discord.com/api',
   '/telegram':    'https://api.telegram.org',
-  '/openai':      'https://api.openai.com',
+  '/gpt':         'https://api.openai.com',
   '/claude':      'https://api.anthropic.com',
   '/gemini':      'https://generativelanguage.googleapis.com',
-  '/meta':        'https://www.meta.ai/api',
-  '/xai':         'https://api.x.ai'
+  '/llama':       'https://www.meta.ai/api',
+  '/grok':        'https://api.x.ai'
 }
 
 async function handleRequest(request, env = {}) {
