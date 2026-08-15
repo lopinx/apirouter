@@ -11,11 +11,9 @@ jobs:
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
-        env:
-          API_MAPPING: ${{ secrets.API_MAPPING }}
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          preCommands: |
-            if [ -n "$API_MAPPING" ]; then
-              printf '%s' "$API_MAPPING" | npx wrangler secret put API_MAPPING
-            fi
+          secrets: |
+            API_MAPPING
+        env:
+          API_MAPPING: ${{ secrets.API_MAPPING }}

@@ -23,7 +23,7 @@
 ### 一键部署到 Cloudflare Workers
 
 <p align="center">
-<a href="https://github.com/lopinx/apirouter">
+<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/lopinx/apirouter">
 <img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Workers">
 </a>
 </p>
@@ -43,7 +43,6 @@ cd apirouter
 |--------|------|------|
 | `CLOUDFLARE_API_TOKEN` | 是 | Cloudflare API Token |
 | `API_MAPPING` | 否 | JSON 字符串格式的路由映射，覆盖默认值 |
-```
 
 ---
 
@@ -119,7 +118,7 @@ flowchart TD
     C[👤 客户端请求] -->|"GET /openai/v1/chat/completions"| W[⚡ Cloudflare Worker]
 
     subgraph worker ["Cloudflare Worker — src/_worker.js"]
-        M[📋 apiMapping<br/>15 API 路由表]
+        M[📋 apiMapping<br/>API 路由表]
         P[🔄 转发 method + headers + body]
         M --> P
     end

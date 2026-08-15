@@ -51,7 +51,8 @@ apirouter/
 
 | 路径 | 行为 |
 |------|------|
-| `/robots.txt` | 返回 `Disallow: /` |
+| `/`、`/index.html` | 由 Assets 直接服务 `public/index.html` 健康检查页 |
+| `/robots.txt` | 由 Assets 服务（worker 内有兜底处理） |
 | 未匹配前缀 | 返回 404 |
 
 ---

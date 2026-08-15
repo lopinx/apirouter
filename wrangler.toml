@@ -1,3 +1,7 @@
 name = "serverless-api-proxy"
 main = "src/_worker.js"
 compatibility_date = "2024-10-01"
+
+# 静态资源：首页健康检查页和 robots.txt 由 Assets 直接服务
+[assets]
+directory = "public"
